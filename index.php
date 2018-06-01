@@ -1,3 +1,12 @@
+<?php
+if ($_GET["city"]) {
+    $forecastPage = file_get_contents("https://www.weather-forecast.com/locations/London/forecasts/latest");
+
+    $pageArray = explode('(1&ndash;3 days)</span><p class="b-forecast__table-description-content"><span class="phrase">', $forecastPage);
+    $secondPageArray = explode('</span></p></td><td colspan="9">', $pageArray[1]);
+    echo $secondPageArray[0];
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>

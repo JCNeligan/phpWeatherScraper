@@ -12,3 +12,7 @@ body {
     width: 450px;
     margin-top: 200px;
 }
+
+input {
+    margin: 20px 0;
+}
