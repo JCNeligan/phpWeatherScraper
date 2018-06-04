@@ -1,8 +1,8 @@
 <?php
-if ($_GET["city"]) {
+$weather = "";
+$error = "";
 
-    $weather = "";
-    $error = "";
+if (array_key_exists("city", $_GET)) {
     $city = str_replace(" ", '', $_GET["city"]);
     $file_headers = @get_headers("https://www.weather-forecast.com/locations/" . $city . "/forecasts/latest");
     if ($file_headers[0] == "HTTP/1.1 404 Not Found") {
@@ -42,7 +42,12 @@ if ($_GET["city"]) {
       <form>
         <div class="form-group">
           <label for="city">Enter the name of a city.</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="e.g. New York, Tokyo" value = "<?php echo $_GET['city']; ?>"/>
+          <input type="text" class="form-control" id="city" name="city" placeholder="e.g. New York, Tokyo" value =
+'<?php
+if (array_key_exists("city", $_GET)) {
+    echo $_GET['city'];
+}
+?>'/>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
