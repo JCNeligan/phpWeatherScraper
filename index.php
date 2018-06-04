@@ -1,10 +1,12 @@
 <?php
 if ($_GET["city"]) {
-    $forecastPage = file_get_contents("https://www.weather-forecast.com/locations/London/forecasts/latest");
+
+    $_GET["city"] = str_replace(" ", '', $_GET["city"]);
+    $forecastPage = file_get_contents("https://www.weather-forecast.com/locations/" . $_GET["city"] . "/forecasts/latest");
 
     $pageArray = explode('(1&ndash;3 days)</span><p class="b-forecast__table-description-content"><span class="phrase">', $forecastPage);
     $secondPageArray = explode('</span></p></td><td colspan="9">', $pageArray[1]);
-    echo $secondPageArray[0];
+    $weather = $secondPageArray[0];
 }
 ?>
 <!doctype html>
@@ -26,7 +28,10 @@ if ($_GET["city"]) {
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <div id="forecast"></div>
+      <div id="forecast"><?php if ($weather) {
+    echo '<div class="alert alert-success" role="alert">' . $weather . '</div>';
+}
+?></div>
     </section>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
